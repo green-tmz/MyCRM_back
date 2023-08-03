@@ -1,0 +1,346 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Раздел Группы",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/groups": {
+            "get": {
+                "tags": [
+                    "Список групп"
+                ],
+                "summary": "Список групп",
+                "description": "Получения списка всех групп",
+                "operationId": "getGroupsList",
+                "responses": {
+                    "200": {
+                        "description": "Список групп",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "lang": {
+                                            "type": "string",
+                                            "example": "ru"
+                                        },
+                                        "users": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Администраторы"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "admin"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Создание новой группы"
+                ],
+                "summary": "Создание новой группы",
+                "description": "Сохраняет новую группу и возвращает ее данные",
+                "operationId": "groupStore",
+                "requestBody": {
+                    "description": "Значения общих настроек",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Name",
+                                        "type": "string",
+                                        "example": "Новая группа"
+                                    },
+                                    "slug": {
+                                        "description": "Slug",
+                                        "type": "string",
+                                        "example": "new-group"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ответ с id группы",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Новая группа"
+                                                },
+                                                "slug": {
+                                                    "type": "string",
+                                                    "example": "new-group"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/groups/create": {
+            "get": {
+                "tags": [
+                    "Поля для создания группы"
+                ],
+                "summary": "Список групп",
+                "description": "Получения списка полей для создания группы",
+                "operationId": "createGroup",
+                "responses": {
+                    "200": {
+                        "description": "Поля для создания группы",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "lang": {
+                                            "type": "string",
+                                            "example": "ru"
+                                        },
+                                        "groups": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Группа"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "group"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/groups/{group}": {
+            "get": {
+                "tags": [
+                    "Детальная группы"
+                ],
+                "summary": "Информация о группе",
+                "description": "Выводит информацию о группе",
+                "operationId": "groupShow",
+                "parameters": [
+                    {
+                        "name": "group",
+                        "in": "path",
+                        "description": "id группы",
+                        "required": true,
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Информация о группе",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Новая группа"
+                                                },
+                                                "slug": {
+                                                    "type": "string",
+                                                    "example": "new-group"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Редактирование группы"
+                ],
+                "summary": "Редактирование группы",
+                "description": "Редактирует группу и возвращает ее данные",
+                "operationId": "groupUpdate",
+                "parameters": [
+                    {
+                        "name": "group",
+                        "in": "path",
+                        "description": "id группы",
+                        "required": true,
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Значения общих настроек",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Name",
+                                        "type": "string",
+                                        "example": "Новая группа"
+                                    },
+                                    "slug": {
+                                        "description": "Slug",
+                                        "type": "string",
+                                        "example": "new-group"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ответ с id группы",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Новая группа"
+                                                },
+                                                "slug": {
+                                                    "type": "string",
+                                                    "example": "new-group"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Удаление группы"
+                ],
+                "summary": "Удаление группы",
+                "description": "Удаляет группу",
+                "operationId": "groupDestroy",
+                "parameters": [
+                    {
+                        "name": "group",
+                        "in": "path",
+                        "description": "id группы",
+                        "required": true,
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Удаление группы прошло успешно"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Введите token в следующем формате: Bearer Ваш Api Token",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}

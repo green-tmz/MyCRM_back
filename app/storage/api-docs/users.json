@@ -1,0 +1,370 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Раздел Пользователи",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Список пользователей"
+                ],
+                "summary": "Список пользователей",
+                "description": "Получения списка всех пользователей",
+                "operationId": "getEmployeesList",
+                "responses": {
+                    "200": {
+                        "description": "Список пользователей",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "lang": {
+                                            "type": "string",
+                                            "example": "ru"
+                                        },
+                                        "users": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "example": "employee@test.ru"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Леонидов Леонид"
+                                                    },
+                                                    "email": {
+                                                        "type": "integer",
+                                                        "example": "employee@test.ru"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Создание нового пользователя"
+                ],
+                "summary": "Создание нового пользователя",
+                "description": "Сохраняет нового пользователя и возвращает его данные",
+                "operationId": "userStore",
+                "requestBody": {
+                    "description": "Значения общих настроек",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Name",
+                                        "type": "string",
+                                        "example": "Новый пользователь"
+                                    },
+                                    "email": {
+                                        "description": "Email",
+                                        "type": "string",
+                                        "example": "user@site.ru"
+                                    },
+                                    "password": {
+                                        "description": "Пароль",
+                                        "type": "string",
+                                        "example": "password123"
+                                    },
+                                    "group_id": {
+                                        "description": "Группа",
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ответ с id пользователя",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Новый пользователь"
+                                                },
+                                                "email": {
+                                                    "type": "email",
+                                                    "example": "user@site.ru"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/users/create": {
+            "get": {
+                "tags": [
+                    "Поля для создания пользователя"
+                ],
+                "summary": "Список пользователей",
+                "description": "Получения списка полей для создания пользователя",
+                "operationId": "createUser",
+                "responses": {
+                    "200": {
+                        "description": "Поля для создания пользователя",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "lang": {
+                                            "type": "string",
+                                            "example": "ru"
+                                        },
+                                        "users": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Леонидов Леонид"
+                                                    },
+                                                    "email": {
+                                                        "type": "integer",
+                                                        "example": "employee@test.ru"
+                                                    },
+                                                    "password": {
+                                                        "type": "string",
+                                                        "example": "password123"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/users/{user}": {
+            "get": {
+                "tags": [
+                    "Детальная пользователя"
+                ],
+                "summary": "Информация о пользователе",
+                "description": "Выводит информацию о пользователе",
+                "operationId": "userShow",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "id пользователя",
+                        "required": true,
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Информация о пользователе",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Леонидов Леонид"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "employee@test.ru"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Редактирование пользователя"
+                ],
+                "summary": "Редактирование пользователя",
+                "description": "Редактирует пользователя и возвращает его данные",
+                "operationId": "userUpdate",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "id пользователя",
+                        "required": true,
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Значения общих настроек",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Name",
+                                        "type": "string",
+                                        "example": "Новый пользователь"
+                                    },
+                                    "email": {
+                                        "description": "Email",
+                                        "type": "string",
+                                        "example": "user@site.ru"
+                                    },
+                                    "password": {
+                                        "description": "Пароль",
+                                        "type": "string",
+                                        "example": "password123"
+                                    },
+                                    "group_id": {
+                                        "description": "Группа",
+                                        "type": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ответ с id пользователя",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Новая группа"
+                                                },
+                                                "slug": {
+                                                    "type": "string",
+                                                    "example": "new-group"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Удаление пользователя"
+                ],
+                "summary": "Удаление пользователя",
+                "description": "Удаляет пользователя",
+                "operationId": "userDestroy",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "description": "id пользователя",
+                        "required": true,
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Удаление пользователя прошло успешно"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Введите token в следующем формате: Bearer Ваш Api Token",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}

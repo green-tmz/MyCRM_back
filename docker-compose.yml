@@ -1,0 +1,78 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./conf/php-fpm/Dockerfile
+    restart: always
+    container_name: ${APP_NAME}_app
+    ports:
+      - "80:80"
+    env_file:
+      - .env
+    tty: true
+    volumes:
+      - ./app:/var/www/html
+      - ./conf/php-fpm/php.ini:/usr/local/etc/php/conf.d/php.ini
+    depends_on:
+      - db
+      - redis
+      - soketi
+    command: >
+      sh -c "composer install && php artisan key:generate && php artisan migrate &&  php artisan storage:link &&  php artisan route:clear &&  npm install --save-dev chokidar &&  php artisan octane:start --server=swoole --host=0.0.0.0 --port=80 --watch"
+    networks:
+      app-network:
+        ipv4_address: 10.17.0.2
+
+  db:
+    image: postgres
+    restart: always
+    container_name: ${APP_NAME}_db
+    env_file:
+      - .env
+    ports:
+      - '5432:5432'
+    networks:
+      app-network:
+        ipv4_address: 10.17.0.3
+
+  redis:
+    image: redis:alpine
+    restart: always
+    container_name: ${APP_NAME}_redis
+    volumes:
+      - ./conf/redis:/data
+    ports:
+      - "6379:6379"
+    networks:
+      app-network:
+        ipv4_address: 10.17.0.4
+
+  soketi:
+    image: 'quay.io/soketi/soketi:latest-16-alpine'
+    restart: always
+    container_name: ${APP_NAME}_soketi
+    environment:
+      SOKETI_ADAPTER_DRIVER: ${SOKETI_ADAPTER_DRIVER:-redis}
+      SOKETI_DB_REDIS_HOST: ${SOKETI_DB_REDIS_HOST:-redis}
+      SOKETI_DB_REDIS_PORT: ${SOKETI_DB_REDIS_PORT:-6379}
+      SOKETI_DB_REDIS_DB: ${SOKETI_DB_REDIS_DB:-10}
+      SOKETI_DEFAULT_APP_ENABLE_CLIENT_MESSAGES: ${SOKETI_DEFAULT_APP_ENABLE_CLIENT_MESSAGES:-true}
+      SOKETI_DEFAULT_APP_ID: ${PUSHER_APP_ID}
+      SOKETI_DEFAULT_APP_KEY: ${PUSHER_APP_KEY}
+      SOKETI_DEFAULT_APP_SECRET: ${PUSHER_APP_SECRET}
+      SOKETI_PATH_PREFIX: ${PUSHER_APP_WS_PATH}
+    ports:
+      - '${SOKETI_PORT:-6001}:6001'
+      - '${SOKETI_METRICS_SERVER_PORT:-9601}:9601'
+    networks:
+      app-network:
+        ipv4_address: 10.17.0.5
+
+networks:
+  app-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.17.0.0/16
+          gateway: 10.17.0.1
