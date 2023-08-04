@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Users;
+namespace App\Modules\Users\Routes;
 
 use App\Modules\Users\Controllers\UserController;
 use Illuminate\Support\Facades\Route;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Groups;
+namespace App\Modules\Groups\Routes;
 
 use App\Modules\Groups\Controllers\GroupController;
 use Illuminate\Support\Facades\Route;
