@@ -91,7 +91,7 @@ class Controller extends BaseController
             [
                 "pages" => [
                     [
-                        "heading" => "dashboard",
+                        "heading" => __('sidebar.dashboard'),
                         "route" => "/dashboard",
                         "svgIcon" => "media/icons/duotune/art/art002.svg",
                         "fontIcon" => "bi-app-indicator"
@@ -101,7 +101,7 @@ class Controller extends BaseController
             [
                 "pages" => [
                     [
-                        "heading" => "calendarApp",
+                        "heading" => __('sidebar.calendar'),
                         "route" => "/apps/calendar",
                         "svgIcon" => "media/icons/duotune/art/art002.svg",
                         "fontIcon" => "ki-calendar-8"
@@ -109,10 +109,10 @@ class Controller extends BaseController
                 ],
             ],
             [
-                "heading" => "settings",
+                "heading" => __('sidebar.settings'),
                 "pages" => [
                     [
-                        "sectionTitle" => "users",
+                        "sectionTitle" => __('sidebar.settings.users'),
                         "route" => "/profile",
                         "svgIcon" => "media/icons/duotune/general/gen022.svg",
                         "fontIcon" => "bi-archive",

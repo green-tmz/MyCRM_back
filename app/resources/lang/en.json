@@ -1,0 +1,6 @@
+{
+    "sidebar.dashboard": "dashboard",
+    "sidebar.calendar": "calendarApp",
+    "sidebar.settings": "settings",
+    "sidebar.settings.users": "users"
+}
