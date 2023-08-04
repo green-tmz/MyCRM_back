@@ -87,15 +87,44 @@ class Controller extends BaseController
      */
     public function mainMenu(Request $request)
     {
-        $pages[] = [
-            "heading" => "dashboard",
-            "route" => "/dashboard",
-            "svgIcon" => "media/icons/duotune/art/art002.svg",
-            "fontIcon" => "bi-app-indicator"
-        ];
-
-        $menu[] = [
-            "pages" => $pages
+        $menu = [
+            [
+                "pages" => [
+                    [
+                        "heading" => "dashboard",
+                        "route" => "/dashboard",
+                        "svgIcon" => "media/icons/duotune/art/art002.svg",
+                        "fontIcon" => "bi-app-indicator"
+                    ]
+                ]
+            ],
+            [
+                "pages" => [
+                    [
+                        "heading" => "calendarApp",
+                        "route" => "/apps/calendar",
+                        "svgIcon" => "media/icons/duotune/art/art002.svg",
+                        "fontIcon" => "ki-calendar-8"
+                    ]
+                ],
+            ],
+            [
+                "heading" => "settings",
+                "pages" => [
+                    [
+                        "sectionTitle" => "users",
+                        "route" => "/profile",
+                        "svgIcon" => "media/icons/duotune/general/gen022.svg",
+                        "fontIcon" => "bi-archive",
+                        "sub" => [
+                            [
+                                "heading" => "profileOverview",
+                                "route" => "/crafted/pages/profile/overview",
+                            ]
+                        ]
+                    ]
+                ]
+            ],
         ];
 
         return response()->json($menu);
