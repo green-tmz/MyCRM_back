@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Http\Request;
 use OpenApi\Annotations as OA;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 /**
  * @OA\OpenApi(
@@ -40,5 +41,77 @@ class Controller extends BaseController
     public function getAppVersion()
     {
         return env('APP_FRONTEND_VERSION');
+    }
+
+    /**
+     * Получение основного меню пользователя.
+     *
+     * @OA\Get(
+     *      path="/api/main-menu",
+     *      summary="Основное меню пользователя",
+     *      description="Получение основного меню пользователя",
+     *      operationId="mainMenu",
+     *      tags={"Основное меню"},
+     *      security={ {"sanctum": {} }},
+     *      @OA\Response(
+     *          response=401,
+     *          description="Неверные авторизационные данные",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="error",
+     *                  type="object",
+     *                  @OA\Property(property="error_code", type="integer", example="2"),
+     *                  @OA\Property(property="error_msg", type="string", example="Неверные авторизационные данные.")
+     *              ),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Ошибка валидации",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="error",
+     *                  type="object",
+     *                  @OA\Property(property="error_code", type="integer", example="1"),
+     *                  @OA\Property(property="error_msg", type="string", example="Ошибка валидации."),
+     *                  @OA\Property(
+     *                      property="fields",
+     *                      type="object",
+     *                      @OA\Property(property="email", type="array", @OA\Items(example="Поле email должно содержать корректный email.")),
+     *                  )
+     *              )
+     *          )
+     *      )
+     * )
+     *
+     */
+    public function mainMenu(Request $request)
+    {
+        $pages[] = [
+            "heading" => "dashboard",
+            "route" => "/dashboard",
+            "svgIcon" => "media/icons/duotune/art/art002.svg",
+            "fontIcon" => "bi-app-indicator"
+        ];
+
+        $menu[] = [
+            "pages" => $pages
+        ];
+
+        return response()->json($menu);
+    }
+
+
+    /**
+     * Возвращает токен пользователя из заголовка.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return string
+     */
+    protected function getTokenFromHeader(Request $request)
+    {
+        $authorizationArray = explode(" ", $request->header("authorization"));
+
+        return $authorizationArray[1];
     }
 }

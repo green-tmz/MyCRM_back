@@ -27,10 +27,10 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::get('version', [Controller::class, 'getAppVersion']);
 
-
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::post('/logout-mobile', [AuthController::class, 'logoutMobile']);
+    Route::get('/main-menu', [Controller::class, 'mainMenu']);
 
     UsersRoutes::api();
     GroupsRoutes::api();

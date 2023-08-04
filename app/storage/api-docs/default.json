@@ -504,6 +504,84 @@
                     }
                 }
             }
+        },
+        "/api/main-menu": {
+            "get": {
+                "tags": [
+                    "Основное меню"
+                ],
+                "summary": "Основное меню пользователя",
+                "description": "Получение основного меню пользователя",
+                "operationId": "mainMenu",
+                "responses": {
+                    "401": {
+                        "description": "Неверные авторизационные данные",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "properties": {
+                                                "error_code": {
+                                                    "type": "integer",
+                                                    "example": "2"
+                                                },
+                                                "error_msg": {
+                                                    "type": "string",
+                                                    "example": "Неверные авторизационные данные."
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Ошибка валидации",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "properties": {
+                                                "error_code": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "error_msg": {
+                                                    "type": "string",
+                                                    "example": "Ошибка валидации."
+                                                },
+                                                "fields": {
+                                                    "properties": {
+                                                        "email": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "example": "Поле email должно содержать корректный email."
+                                                            }
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
         }
     },
     "components": {
