@@ -47,8 +47,6 @@ class MakeModule extends Command
             $params = "-r";
         }
 
-        // print_r($params);
-
         $name = ucfirst($this->argument('name'));
         $routeName = $name . "Routes";
         $controllerName = $name . "Controller";
