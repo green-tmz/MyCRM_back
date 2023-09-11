@@ -2,7 +2,11 @@
 
 use App\Modules\Users\Routes\UsersRoutes;
 use App\Http\Controllers\Controller;
-use App\Modules\Groups\Routes\GroupsRoutes;
+use App\Modules\Roles\Routes\RolesRoutes;
+use App\Modules\Services\Routes\ServicesRoutes;
+use App\Modules\Organizations\Routes\OrganizationRoutes;
+use App\Modules\Departments\Routes\DepartmentsRoutes;
+use App\Modules\Personal\Routes\PersonalRoutes;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -33,5 +37,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/main-menu', [Controller::class, 'mainMenu']);
 
     UsersRoutes::api();
-    GroupsRoutes::api();
+    RolesRoutes::api();
+    ServicesRoutes::api();
+    OrganizationRoutes::api();
+    DepartmentsRoutes::api();
+    PersonalRoutes::api();
 });

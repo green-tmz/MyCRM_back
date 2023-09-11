@@ -5,14 +5,14 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/vacansies": {
+        "/api/departments": {
             "get": {
                 "tags": [
                     "Список должностей"
                 ],
                 "summary": "Список должностей",
                 "description": "Получения списка всех должностей",
-                "operationId": "getVacansiesList",
+                "operationId": "getDepartmentsList",
                 "responses": {
                     "200": {
                         "description": "Список должностей",
@@ -24,7 +24,7 @@
                                             "type": "string",
                                             "example": "ru"
                                         },
-                                        "vacansies": {
+                                        "departments": {
                                             "type": "array",
                                             "items": {
                                                 "properties": {
@@ -63,7 +63,7 @@
                 ],
                 "summary": "Создание новой должности",
                 "description": "Сохраняет новую должность и возвращает ее данные",
-                "operationId": "vacansiesStore",
+                "operationId": "departmentsStore",
                 "requestBody": {
                     "description": "Значения общих настроек",
                     "required": true,
@@ -79,7 +79,7 @@
                                     "slug": {
                                         "description": "Slug",
                                         "type": "string",
-                                        "example": "new-vacansy"
+                                        "example": "new-department"
                                     }
                                 },
                                 "type": "object"
@@ -106,7 +106,7 @@
                                                 },
                                                 "slug": {
                                                     "type": "string",
-                                                    "example": "vacansy"
+                                                    "example": "department"
                                                 }
                                             },
                                             "type": "object"
@@ -125,17 +125,17 @@
                 ]
             }
         },
-        "/api/vacansies/{vacansy}": {
+        "/api/departments/{department}": {
             "put": {
                 "tags": [
                     "Редактирование должности"
                 ],
                 "summary": "Редактирование должности",
                 "description": "Редактирует должность и возвращает ее данные",
-                "operationId": "vacansiesUpdate",
+                "operationId": "departmentUpdate",
                 "parameters": [
                     {
-                        "name": "vacansy",
+                        "name": "department",
                         "in": "path",
                         "description": "id должности",
                         "required": true,
@@ -157,7 +157,7 @@
                                     "slug": {
                                         "description": "Slug",
                                         "type": "string",
-                                        "example": "new-vacansy"
+                                        "example": "new-department"
                                     }
                                 },
                                 "type": "object"
@@ -184,7 +184,7 @@
                                                 },
                                                 "slug": {
                                                     "type": "string",
-                                                    "example": "new-vacansy"
+                                                    "example": "new-department"
                                                 }
                                             },
                                             "type": "object"
@@ -208,10 +208,10 @@
                 ],
                 "summary": "Удаление должности",
                 "description": "Удаляет должность",
-                "operationId": "vacansiesDestroy",
+                "operationId": "departmentsDestroy",
                 "parameters": [
                     {
-                        "name": "vacansy",
+                        "name": "department",
                         "in": "path",
                         "description": "id должности",
                         "required": true,

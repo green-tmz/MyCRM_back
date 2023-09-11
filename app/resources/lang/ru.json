@@ -2,5 +2,8 @@
     "sidebar.dashboard": "Панель управления",
     "sidebar.calendar": "Календарь",
     "sidebar.settings": "Настройки",
-    "sidebar.settings.users": "Пользователи"
+    "sidebar.settings.users": "Пользователи",
+    "sidebar.settings.groups": "Группы",
+    "sidebar.settings.services": "Услуги",
+    "auth.not_found": "Ресурс не найден"
 }

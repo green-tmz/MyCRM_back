@@ -1,0 +1,72 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Раздел Сотрудники",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/personals": {
+            "get": {
+                "tags": [
+                    "Список сотрудников"
+                ],
+                "summary": "Список сотрудников",
+                "description": "Получения списка всех сотрудников",
+                "operationId": "getPersonalsList",
+                "responses": {
+                    "200": {
+                        "description": "Список сотрудников",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "lang": {
+                                            "type": "string",
+                                            "example": "ru"
+                                        },
+                                        "users": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Администраторы"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "admin"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Введите token в следующем формате: Bearer Ваш Api Token",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}

@@ -245,10 +245,20 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "name": {
-                                        "description": "Name",
+                                    "first_name": {
+                                        "description": "First Name",
                                         "type": "string",
-                                        "example": "Admin"
+                                        "example": "First Name"
+                                    },
+                                    "last_name": {
+                                        "description": "Last Name",
+                                        "type": "string",
+                                        "example": "Last Name"
+                                    },
+                                    "second_name": {
+                                        "description": "Second Name",
+                                        "type": "string",
+                                        "example": "Second Name"
                                     },
                                     "email": {
                                         "description": "Email",

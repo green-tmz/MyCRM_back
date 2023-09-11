@@ -1,21 +1,21 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Раздел Должности",
+        "title": "Раздел  организация",
         "version": "1.0.0"
     },
     "paths": {
-        "/api/vacansies": {
+        "/api/organizations": {
             "get": {
                 "tags": [
-                    "Список должностей"
+                    "Список основных настроек"
                 ],
-                "summary": "Список должностей",
-                "description": "Получения списка всех должностей",
-                "operationId": "getVacansiesList",
+                "summary": "Список основных настроек.",
+                "description": "Получения списка всех основных настроек",
+                "operationId": "getOrganizationsList",
                 "responses": {
                     "200": {
-                        "description": "Список должностей",
+                        "description": "Список основных настроек",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -24,25 +24,9 @@
                                             "type": "string",
                                             "example": "ru"
                                         },
-                                        "vacansies": {
+                                        "users": {
                                             "type": "array",
-                                            "items": {
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "integer",
-                                                        "example": "1"
-                                                    },
-                                                    "name": {
-                                                        "type": "string",
-                                                        "example": "Директор"
-                                                    },
-                                                    "slug": {
-                                                        "type": "string",
-                                                        "example": "director"
-                                                    }
-                                                },
-                                                "type": "object"
-                                            }
+                                            "items": {}
                                         }
                                     },
                                     "type": "object"
@@ -59,27 +43,54 @@
             },
             "post": {
                 "tags": [
-                    "Создание новой должности"
+                    "Создание настройки"
                 ],
-                "summary": "Создание новой должности",
-                "description": "Сохраняет новую должность и возвращает ее данные",
-                "operationId": "vacansiesStore",
+                "summary": "Создание настройки",
+                "description": "Сохраняет новую настройку и возвращает ее данные",
+                "operationId": "organizationsStore",
                 "requestBody": {
                     "description": "Значения общих настроек",
-                    "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "properties": {
                                     "name": {
-                                        "description": "Name",
+                                        "description": "name",
                                         "type": "string",
-                                        "example": "Должность"
+                                        "example": "Моя организация"
                                     },
-                                    "slug": {
-                                        "description": "Slug",
+                                    "form": {
+                                        "description": "form",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "director": {
+                                        "description": "director",
                                         "type": "string",
-                                        "example": "new-vacansy"
+                                        "example": "Иванов И.И."
+                                    },
+                                    "start_at": {
+                                        "description": "start_at",
+                                        "type": "string",
+                                        "example": "09:00:00"
+                                    },
+                                    "end_at": {
+                                        "description": "end_at",
+                                        "type": "string",
+                                        "example": "18:00:00"
+                                    },
+                                    "days": {
+                                        "description": "days",
+                                        "type": "enum",
+                                        "example": "['Пн', 'Вт']"
+                                    },
+                                    "logo": {
+                                        "description": "logo",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
                                     }
                                 },
                                 "type": "object"
@@ -89,7 +100,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Ответ с id должности",
+                        "description": "Ответ с id настройки",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -102,11 +113,11 @@
                                                 },
                                                 "name": {
                                                     "type": "string",
-                                                    "example": "Должность"
+                                                    "example": "Новая группа"
                                                 },
                                                 "slug": {
                                                     "type": "string",
-                                                    "example": "vacansy"
+                                                    "example": "new-group"
                                                 }
                                             },
                                             "type": "object"
@@ -125,39 +136,66 @@
                 ]
             }
         },
-        "/api/vacansies/{vacansy}": {
+        "/api/organizations/{organization}": {
             "put": {
                 "tags": [
-                    "Редактирование должности"
+                    "Редактирование основных настроек"
                 ],
-                "summary": "Редактирование должности",
-                "description": "Редактирует должность и возвращает ее данные",
-                "operationId": "vacansiesUpdate",
+                "summary": "Редактирование основных настроек",
+                "description": "Редактирует основные настроеки и возвращает их",
+                "operationId": "organizationsUpdate",
                 "parameters": [
                     {
-                        "name": "vacansy",
+                        "name": "organization",
                         "in": "path",
-                        "description": "id должности",
+                        "description": "id настройки",
                         "required": true,
                         "example": "1"
                     }
                 ],
                 "requestBody": {
                     "description": "Значения общих настроек",
-                    "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "properties": {
                                     "name": {
-                                        "description": "Name",
+                                        "description": "name",
                                         "type": "string",
-                                        "example": "Новая должность"
+                                        "example": "Моя организация"
                                     },
-                                    "slug": {
-                                        "description": "Slug",
+                                    "form": {
+                                        "description": "form",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "director": {
+                                        "description": "director",
                                         "type": "string",
-                                        "example": "new-vacansy"
+                                        "example": "Иванов И.И."
+                                    },
+                                    "start_at": {
+                                        "description": "start_at",
+                                        "type": "string",
+                                        "example": "09:00:00"
+                                    },
+                                    "end_at": {
+                                        "description": "end_at",
+                                        "type": "string",
+                                        "example": "18:00:00"
+                                    },
+                                    "days": {
+                                        "description": "days",
+                                        "type": "enum",
+                                        "example": "['Пн', 'Вт']"
+                                    },
+                                    "logo": {
+                                        "description": "logo",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
                                     }
                                 },
                                 "type": "object"
@@ -167,7 +205,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Ответ с id группы",
+                        "description": "Ответ с id настройки",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -180,11 +218,11 @@
                                                 },
                                                 "name": {
                                                     "type": "string",
-                                                    "example": "Новая должность"
+                                                    "example": "Новая группа"
                                                 },
                                                 "slug": {
                                                     "type": "string",
-                                                    "example": "new-vacansy"
+                                                    "example": "new-group"
                                                 }
                                             },
                                             "type": "object"
@@ -204,23 +242,28 @@
             },
             "delete": {
                 "tags": [
-                    "Удаление должности"
+                    "Удаление основных настроек"
                 ],
-                "summary": "Удаление должности",
-                "description": "Удаляет должность",
-                "operationId": "vacansiesDestroy",
+                "summary": "Удаление основных настроек",
+                "description": "Удаление основных настроек",
+                "operationId": "organizationsDestroy",
                 "parameters": [
                     {
-                        "name": "vacansy",
+                        "name": "organization",
                         "in": "path",
-                        "description": "id должности",
+                        "description": "id настройки",
                         "required": true,
                         "example": "1"
                     }
                 ],
                 "responses": {
-                    "204": {
-                        "description": "Удаление должности прошло успешно"
+                    "200": {
+                        "description": "Список настроек",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
                     }
                 },
                 "security": [

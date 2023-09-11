@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
@@ -190,7 +191,9 @@ class AuthController extends Controller
      *          required=true,
      *          description="Значения общих настроек",
      *          @OA\JsonContent(
-     *              @OA\Property(property="name", description="Name", type="string", example="Admin"),
+     *              @OA\Property(property="first_name", description="First Name", type="string", example="First Name"),
+     *              @OA\Property(property="last_name", description="Last Name", type="string", example="Last Name"),
+     *              @OA\Property(property="second_name", description="Second Name", type="string", example="Second Name"),
      *              @OA\Property(property="email", description="Email", type="string", example="admin@admin.ru"),
      *              @OA\Property(property="password", description="Пароль", type="string", example="password123"),
      *              @OA\Property(property="password_confirmation", description="Подтверждение пароля", type="string", example="password123")
@@ -233,12 +236,20 @@ class AuthController extends Controller
     public function register(RegisterRequest $request): JsonResponse
     {
         $user = User::create($request->validated());
+        $role = UserRole::create([
+            'user_id' => $user->id,
+            'role_id' => 1
+        ]);
 
         return response()->json([
             'data' => [
                 'user' => [
                     'id' => $user->id,
-                    'name' => $user->name,
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'second_name' => $user->second_name,
+                    'email' => $user->email,
+                    'role' => $role
                 ]
             ],
         ]);
@@ -281,9 +292,11 @@ class AuthController extends Controller
                     'lifetime' => self::EXIT_TIME,
                     'user' => [
                         'id' => $user->id,
-                        'name' => $user->name,
+                        'first_name' => $user->first_name,
+                        'last_name' => $user->last_name,
+                        'second_name' => $user->second_name,
                         'email' => $user->email,
-                        'group' => $user->group->name,
+                        'role' => $user->userrole,
                     ]
                 ],
             ])->withHeaders([

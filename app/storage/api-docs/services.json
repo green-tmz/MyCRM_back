@@ -1,21 +1,21 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Раздел Должности",
+        "title": "Раздел Услуги",
         "version": "1.0.0"
     },
     "paths": {
-        "/api/vacansies": {
+        "/api/services": {
             "get": {
                 "tags": [
-                    "Список должностей"
+                    "Список услуг"
                 ],
-                "summary": "Список должностей",
-                "description": "Получения списка всех должностей",
-                "operationId": "getVacansiesList",
+                "summary": "Список услуг",
+                "description": "Получения списка всех услуг",
+                "operationId": "getServicesList",
                 "responses": {
                     "200": {
-                        "description": "Список должностей",
+                        "description": "Список услуг",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -24,25 +24,9 @@
                                             "type": "string",
                                             "example": "ru"
                                         },
-                                        "vacansies": {
+                                        "services": {
                                             "type": "array",
-                                            "items": {
-                                                "properties": {
-                                                    "id": {
-                                                        "type": "integer",
-                                                        "example": "1"
-                                                    },
-                                                    "name": {
-                                                        "type": "string",
-                                                        "example": "Директор"
-                                                    },
-                                                    "slug": {
-                                                        "type": "string",
-                                                        "example": "director"
-                                                    }
-                                                },
-                                                "type": "object"
-                                            }
+                                            "items": {}
                                         }
                                     },
                                     "type": "object"
@@ -59,11 +43,11 @@
             },
             "post": {
                 "tags": [
-                    "Создание новой должности"
+                    "Создание новой услуги"
                 ],
-                "summary": "Создание новой должности",
-                "description": "Сохраняет новую должность и возвращает ее данные",
-                "operationId": "vacansiesStore",
+                "summary": "Создание новой услуги",
+                "description": "Сохраняет новую услугу и возвращает ее данные",
+                "operationId": "serviceStore",
                 "requestBody": {
                     "description": "Значения общих настроек",
                     "required": true,
@@ -74,12 +58,27 @@
                                     "name": {
                                         "description": "Name",
                                         "type": "string",
-                                        "example": "Должность"
+                                        "example": "Новая услуга"
                                     },
                                     "slug": {
                                         "description": "Slug",
                                         "type": "string",
-                                        "example": "new-vacansy"
+                                        "example": "new-service"
+                                    },
+                                    "desc": {
+                                        "description": "Desc",
+                                        "type": "string",
+                                        "example": "Описание новой услуги"
+                                    },
+                                    "duration": {
+                                        "description": "Duration",
+                                        "type": "timestamp",
+                                        "example": "00:30:00"
+                                    },
+                                    "active": {
+                                        "description": "Active",
+                                        "type": "boolean",
+                                        "example": "true"
                                     }
                                 },
                                 "type": "object"
@@ -89,7 +88,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Ответ с id должности",
+                        "description": "Ответ с id услуги",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -102,11 +101,11 @@
                                                 },
                                                 "name": {
                                                     "type": "string",
-                                                    "example": "Должность"
+                                                    "example": "Новая группа"
                                                 },
                                                 "slug": {
                                                     "type": "string",
-                                                    "example": "vacansy"
+                                                    "example": "new-group"
                                                 }
                                             },
                                             "type": "object"
@@ -125,19 +124,72 @@
                 ]
             }
         },
-        "/api/vacansies/{vacansy}": {
-            "put": {
+        "/api/services/{service}": {
+            "get": {
                 "tags": [
-                    "Редактирование должности"
+                    "Детальная услуги"
                 ],
-                "summary": "Редактирование должности",
-                "description": "Редактирует должность и возвращает ее данные",
-                "operationId": "vacansiesUpdate",
+                "summary": "Информация о услуге",
+                "description": "Выводит информацию об услуге",
+                "operationId": "serviceShow",
                 "parameters": [
                     {
-                        "name": "vacansy",
+                        "name": "service",
                         "in": "path",
-                        "description": "id должности",
+                        "description": "id услуги",
+                        "required": true,
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Информация об услуге",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Новая группа"
+                                                },
+                                                "slug": {
+                                                    "type": "string",
+                                                    "example": "new-group"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Редактирование услуги"
+                ],
+                "summary": "Редактирование услуги",
+                "description": "Редактирует услугу и возвращает ее данные",
+                "operationId": "serviceUpdate",
+                "parameters": [
+                    {
+                        "name": "service",
+                        "in": "path",
+                        "description": "id услуги",
                         "required": true,
                         "example": "1"
                     }
@@ -152,12 +204,27 @@
                                     "name": {
                                         "description": "Name",
                                         "type": "string",
-                                        "example": "Новая должность"
+                                        "example": "Новая услуга"
                                     },
                                     "slug": {
                                         "description": "Slug",
                                         "type": "string",
-                                        "example": "new-vacansy"
+                                        "example": "new-service"
+                                    },
+                                    "desc": {
+                                        "description": "Desc",
+                                        "type": "string",
+                                        "example": "Описание новой услуги"
+                                    },
+                                    "duration": {
+                                        "description": "Duration",
+                                        "type": "timestamp",
+                                        "example": "00:30:00"
+                                    },
+                                    "active": {
+                                        "description": "Active",
+                                        "type": "boolean",
+                                        "example": "true"
                                     }
                                 },
                                 "type": "object"
@@ -180,11 +247,11 @@
                                                 },
                                                 "name": {
                                                     "type": "string",
-                                                    "example": "Новая должность"
+                                                    "example": "Новая группа"
                                                 },
                                                 "slug": {
                                                     "type": "string",
-                                                    "example": "new-vacansy"
+                                                    "example": "new-group"
                                                 }
                                             },
                                             "type": "object"
@@ -204,23 +271,23 @@
             },
             "delete": {
                 "tags": [
-                    "Удаление должности"
+                    "Удаление услуги"
                 ],
-                "summary": "Удаление должности",
-                "description": "Удаляет должность",
-                "operationId": "vacansiesDestroy",
+                "summary": "Удаление услуги",
+                "description": "Удаляет услуги",
+                "operationId": "serviceDestroy",
                 "parameters": [
                     {
-                        "name": "vacansy",
+                        "name": "service",
                         "in": "path",
-                        "description": "id должности",
+                        "description": "id услуги",
                         "required": true,
                         "example": "1"
                     }
                 ],
                 "responses": {
                     "204": {
-                        "description": "Удаление должности прошло успешно"
+                        "description": "Удаление услуги прошло успешно"
                     }
                 },
                 "security": [

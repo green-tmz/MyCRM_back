@@ -1,6 +1,9 @@
 {
-    "sidebar.dashboard": "dashboard",
-    "sidebar.calendar": "calendarApp",
-    "sidebar.settings": "settings",
-    "sidebar.settings.users": "users"
+    "sidebar.dashboard": "Dashboard",
+    "sidebar.calendar": "Calendar",
+    "sidebar.settings": "Settings",
+    "sidebar.settings.users": "Users",
+    "sidebar.settings.groups": "Groups",
+    "sidebar.settings.services": "Services",
+    "auth.not_found": "Resource not found"
 }

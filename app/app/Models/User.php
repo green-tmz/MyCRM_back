@@ -4,11 +4,11 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Modules\Groups\Models\Group;
+use App\Models\UserRole;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -21,10 +21,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'id',
-        'name',
+        'first_name',
+        'last_name',
+        'second_name',
+        'avatar',
         'email',
-        'password',
-        'group_id'
+        'password'
     ];
 
     /**
@@ -47,8 +49,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function group()
+    public function role()
     {
-        return $this->hasOne(Group::class, 'id', 'group_id');
+        return $this->hasOne(UserRole::class, 'user_id', 'id');
     }
 }

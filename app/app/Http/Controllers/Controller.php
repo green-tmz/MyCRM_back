@@ -112,17 +112,35 @@ class Controller extends BaseController
                 "heading" => __('sidebar.settings'),
                 "pages" => [
                     [
-                        "sectionTitle" => __('sidebar.settings.users'),
-                        "route" => "/profile",
-                        "svgIcon" => "media/icons/duotune/general/gen022.svg",
-                        "fontIcon" => "bi-archive",
-                        "sub" => [
-                            [
-                                "heading" => "profileOverview",
-                                "route" => "/crafted/pages/profile/overview",
-                            ]
-                        ]
+                        "heading" => __('sidebar.settings.users'),
+                        "route" => "/settings/users",
+                        "svgIcon" => "media/icons/duotune/art/art002.svg",
+                        "fontIcon" => "ki-calendar-8"
+                    ],
+                    [
+                        "heading" => __('sidebar.settings.groups'),
+                        "route" => "/settings/groups",
+                        "svgIcon" => "media/icons/duotune/art/art002.svg",
+                        "fontIcon" => "ki-calendar-8"
+                    ],
+                    [
+                        "heading" => __('sidebar.settings.services'),
+                        "route" => "/settings/services",
+                        "svgIcon" => "media/icons/duotune/art/art002.svg",
+                        "fontIcon" => "ki-calendar-8"
                     ]
+                    // [
+                    //     "sectionTitle" => __('sidebar.settings.users'),
+                    //     "route" => "/profile",
+                    //     "svgIcon" => "media/icons/duotune/general/gen022.svg",
+                    //     "fontIcon" => "bi-archive",
+                    //     "sub" => [
+                    //         [
+                    //             "heading" => "Users",
+                    //             "route" => "/crafted/pages/profile/overview",
+                    //         ]
+                    //     ]
+                    // ]
                 ]
             ],
         ];

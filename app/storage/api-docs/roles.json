@@ -1,21 +1,21 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Раздел Должности",
+        "title": "Раздел Ролей",
         "version": "1.0.0"
     },
     "paths": {
-        "/api/vacansies": {
+        "/api/roles": {
             "get": {
                 "tags": [
-                    "Список должностей"
+                    "Список ролей"
                 ],
-                "summary": "Список должностей",
-                "description": "Получения списка всех должностей",
-                "operationId": "getVacansiesList",
+                "summary": "Список ролей",
+                "description": "Получения списка всех ролей",
+                "operationId": "getRolesList",
                 "responses": {
                     "200": {
-                        "description": "Список должностей",
+                        "description": "Список ролей",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -24,7 +24,7 @@
                                             "type": "string",
                                             "example": "ru"
                                         },
-                                        "vacansies": {
+                                        "roles": {
                                             "type": "array",
                                             "items": {
                                                 "properties": {
@@ -34,11 +34,11 @@
                                                     },
                                                     "name": {
                                                         "type": "string",
-                                                        "example": "Директор"
+                                                        "example": "Администраторы"
                                                     },
                                                     "slug": {
                                                         "type": "string",
-                                                        "example": "director"
+                                                        "example": "admin"
                                                     }
                                                 },
                                                 "type": "object"
@@ -59,11 +59,11 @@
             },
             "post": {
                 "tags": [
-                    "Создание новой должности"
+                    "Создание новой роли"
                 ],
-                "summary": "Создание новой должности",
-                "description": "Сохраняет новую должность и возвращает ее данные",
-                "operationId": "vacansiesStore",
+                "summary": "Создание новой роли",
+                "description": "Сохраняет новую роль и возвращает ее данные",
+                "operationId": "rolesStore",
                 "requestBody": {
                     "description": "Значения общих настроек",
                     "required": true,
@@ -74,12 +74,12 @@
                                     "name": {
                                         "description": "Name",
                                         "type": "string",
-                                        "example": "Должность"
+                                        "example": "Новая роль"
                                     },
                                     "slug": {
                                         "description": "Slug",
                                         "type": "string",
-                                        "example": "new-vacansy"
+                                        "example": "new-role"
                                     }
                                 },
                                 "type": "object"
@@ -89,7 +89,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Ответ с id должности",
+                        "description": "Ответ с id роли",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -102,11 +102,11 @@
                                                 },
                                                 "name": {
                                                     "type": "string",
-                                                    "example": "Должность"
+                                                    "example": "Новая роль"
                                                 },
                                                 "slug": {
                                                     "type": "string",
-                                                    "example": "vacansy"
+                                                    "example": "new-role"
                                                 }
                                             },
                                             "type": "object"
@@ -125,19 +125,72 @@
                 ]
             }
         },
-        "/api/vacansies/{vacansy}": {
-            "put": {
+        "/api/roles/{role}": {
+            "get": {
                 "tags": [
-                    "Редактирование должности"
+                    "Детальная роли"
                 ],
-                "summary": "Редактирование должности",
-                "description": "Редактирует должность и возвращает ее данные",
-                "operationId": "vacansiesUpdate",
+                "summary": "Информация о роли",
+                "description": "Выводит информацию о роли",
+                "operationId": "roleShow",
                 "parameters": [
                     {
-                        "name": "vacansy",
+                        "name": "role",
                         "in": "path",
-                        "description": "id должности",
+                        "description": "id роли",
+                        "required": true,
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Информация о роли",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Новая роль"
+                                                },
+                                                "slug": {
+                                                    "type": "string",
+                                                    "example": "new-role"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Редактирование роли"
+                ],
+                "summary": "Редактирование роли",
+                "description": "Редактирует роль и возвращает ее данные",
+                "operationId": "roleUpdate",
+                "parameters": [
+                    {
+                        "name": "role",
+                        "in": "path",
+                        "description": "id группы",
                         "required": true,
                         "example": "1"
                     }
@@ -152,12 +205,12 @@
                                     "name": {
                                         "description": "Name",
                                         "type": "string",
-                                        "example": "Новая должность"
+                                        "example": "Новая роль"
                                     },
                                     "slug": {
                                         "description": "Slug",
                                         "type": "string",
-                                        "example": "new-vacansy"
+                                        "example": "new-role"
                                     }
                                 },
                                 "type": "object"
@@ -167,7 +220,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Ответ с id группы",
+                        "description": "Ответ с id роли",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -180,11 +233,11 @@
                                                 },
                                                 "name": {
                                                     "type": "string",
-                                                    "example": "Новая должность"
+                                                    "example": "Новая роль"
                                                 },
                                                 "slug": {
                                                     "type": "string",
-                                                    "example": "new-vacansy"
+                                                    "example": "new-role"
                                                 }
                                             },
                                             "type": "object"
@@ -204,23 +257,23 @@
             },
             "delete": {
                 "tags": [
-                    "Удаление должности"
+                    "Удаление роли"
                 ],
-                "summary": "Удаление должности",
-                "description": "Удаляет должность",
-                "operationId": "vacansiesDestroy",
+                "summary": "Удаление роли",
+                "description": "Удаляет роли",
+                "operationId": "roleDestroy",
                 "parameters": [
                     {
-                        "name": "vacansy",
+                        "name": "role",
                         "in": "path",
-                        "description": "id должности",
+                        "description": "id роли",
                         "required": true,
                         "example": "1"
                     }
                 ],
                 "responses": {
                     "204": {
-                        "description": "Удаление должности прошло успешно"
+                        "description": "Удаление роли прошло успешно"
                     }
                 },
                 "security": [

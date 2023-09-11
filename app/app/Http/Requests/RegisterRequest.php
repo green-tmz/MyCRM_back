@@ -28,7 +28,9 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:5',
+            'first_name' => 'required|string|min:2',
+            'last_name' => 'required|string|min:2',
+            'second_name' => 'required|string|min:2',
             'email' => 'required|email|unique:users,email',
             'password' => [
                 'required',
@@ -37,7 +39,6 @@ class RegisterRequest extends FormRequest
                 new MinUppercase(),
                 new MinNumber(1),
             ],
-            'group_id' => 'required|integer|exists:groups,id'
         ];
     }
 
@@ -45,7 +46,6 @@ class RegisterRequest extends FormRequest
     {
         $this->merge([
             'email' => strtolower($this->email),
-            'group_id' => 1
         ]);
     }
 }

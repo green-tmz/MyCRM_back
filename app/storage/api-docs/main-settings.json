@@ -1,0 +1,287 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Раздел основные настройки",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/main-settings": {
+            "get": {
+                "tags": [
+                    "Список основных настроек"
+                ],
+                "summary": "Список основных настроек.",
+                "description": "Получения списка всех основных настроек",
+                "operationId": "getMainSettingsList",
+                "responses": {
+                    "200": {
+                        "description": "Список основных настроек",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "lang": {
+                                            "type": "string",
+                                            "example": "ru"
+                                        },
+                                        "users": {
+                                            "type": "array",
+                                            "items": {}
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Создание настройки"
+                ],
+                "summary": "Создание настройки",
+                "description": "Сохраняет новую настройку и возвращает ее данные",
+                "operationId": "mainSettingsStore",
+                "requestBody": {
+                    "description": "Значения общих настроек",
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "organization_name": {
+                                        "description": "organization_name",
+                                        "type": "string",
+                                        "example": "Моя организация"
+                                    },
+                                    "organization_form": {
+                                        "description": "organization_form",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "director": {
+                                        "description": "director",
+                                        "type": "string",
+                                        "example": "Иванов И.И."
+                                    },
+                                    "start_at": {
+                                        "description": "start_at",
+                                        "type": "string",
+                                        "example": "09:00:00"
+                                    },
+                                    "end_at": {
+                                        "description": "end_at",
+                                        "type": "string",
+                                        "example": "18:00:00"
+                                    },
+                                    "days": {
+                                        "description": "days",
+                                        "type": "enum",
+                                        "example": "['Пн', 'Вт']"
+                                    },
+                                    "logo": {
+                                        "description": "logo",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ответ с id настройки",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Новая группа"
+                                                },
+                                                "slug": {
+                                                    "type": "string",
+                                                    "example": "new-group"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/main-settings/{mainSetting}": {
+            "put": {
+                "tags": [
+                    "Редактирование основных настроек"
+                ],
+                "summary": "Редактирование основных настроек",
+                "description": "Редактирует основные настроеки и возвращает их",
+                "operationId": "MainSettingsUpdate",
+                "parameters": [
+                    {
+                        "name": "mainSetting",
+                        "in": "path",
+                        "description": "id настройки",
+                        "required": true,
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Значения общих настроек",
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "organization_name": {
+                                        "description": "organization_name",
+                                        "type": "string",
+                                        "example": "Моя организация"
+                                    },
+                                    "organization_form": {
+                                        "description": "organization_form",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "director": {
+                                        "description": "director",
+                                        "type": "string",
+                                        "example": "Иванов И.И."
+                                    },
+                                    "start_at": {
+                                        "description": "start_at",
+                                        "type": "string",
+                                        "example": "09:00:00"
+                                    },
+                                    "end_at": {
+                                        "description": "end_at",
+                                        "type": "string",
+                                        "example": "18:00:00"
+                                    },
+                                    "days": {
+                                        "description": "days",
+                                        "type": "enum",
+                                        "example": "['Пн', 'Вт']"
+                                    },
+                                    "logo": {
+                                        "description": "logo",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ответ с id настройки",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Новая группа"
+                                                },
+                                                "slug": {
+                                                    "type": "string",
+                                                    "example": "new-group"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Удаление основных настроек"
+                ],
+                "summary": "Удаление основных настроек",
+                "description": "Удаление основных настроек",
+                "operationId": "MainSettingsDestroy",
+                "parameters": [
+                    {
+                        "name": "mainSetting",
+                        "in": "path",
+                        "description": "id настройки",
+                        "required": true,
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список настроек",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Введите token в следующем формате: Bearer Ваш Api Token",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}
